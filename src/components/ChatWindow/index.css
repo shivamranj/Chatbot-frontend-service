@@ -1,0 +1,97 @@
+.chat-window {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative; 
+  }
+  
+  .message {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    position: relative; 
+  }
+  
+  .message .bot-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .message-content {
+    background-color: #f7f7f7;
+    border-radius: 14px 20px 20px 0px;
+    padding: 10px;
+    max-width: 70%; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap; 
+    font-size: 14px;
+  }
+  
+  .message.user {
+    flex-direction: row-reverse; 
+  }
+  
+  .message.user .message-content {
+    background-color: #7d37ff;
+    color: #fff;
+    border-radius: 20px 0px 14px 20px;
+  }
+  
+  .message-options {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: none; 
+    align-items: center;
+  }
+  
+  .message:hover .message-options {
+    display: flex; 
+  }
+  
+  .ellipsis {
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 4px;
+    transition: transform 0.2s;
+  }
+  
+  .ellipsis:hover {
+    transform: scale(1.1);
+  }
+  
+  .options-menu {
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    position: absolute;
+    top: 20px;
+    right: 0;
+    padding: 4px 8px;
+    z-index: 10;
+  }
+  
+  .options-menu button {
+    background: none;
+    border: none;
+    color: #0073e6;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 14px;
+  }
+  
+  .options-menu button:hover {
+    color: #005bb5;
+  }
+  
+  .edited-label {
+    font-size: 0.8em;
+    color: #fff;
+    margin-left: 5px;
+  }

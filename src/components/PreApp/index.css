@@ -1,0 +1,24 @@
+.header__container_heading{
+    display: flex;
+    box-shadow: 0 3px 5.2px 0 hsla(0, 0%, 71%, .25);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    width: 6%;
+    border-radius: 8px;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.header__container_heading img{
+    width: 30%;
+}
+
+.chatbot-icon{
+    position: fixed;
+    bottom: 20px; 
+    right: 20px; 
+    width: 60px; 
+    height: 60px;
+    cursor: pointer;
+    z-index: 1000; 
+}

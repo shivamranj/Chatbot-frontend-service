@@ -1,0 +1,39 @@
+.chat-input-container {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-top: 1px solid #ddd; 
+    height: 100%;
+  }
+  
+  .profile-image {
+    width: 25px; 
+    height: 25px; 
+    border-radius: 50%; 
+    margin-right: 10px; 
+  }
+  
+  .chat-input {
+    flex: 1;
+    border: none;
+    padding: 5px;
+    border-radius: 20px;
+    background-color: #fff; 
+    box-shadow: 0 0 0 1px #ddd; 
+  }
+
+  .send-msg-button{
+    width: 22px; 
+    height: 22px; 
+    margin-top:-3px;
+    cursor: pointer;
+
+  }
+
+  .setting{
+    width: 19px; 
+    height: 19px; 
+    margin-top:-3px;
+    margin-right: 13px;
+  }
+
