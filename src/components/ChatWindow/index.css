@@ -95,3 +95,20 @@
     color: #fff;
     margin-left: 5px;
   }
+
+  .message-content_cyclic{
+    margin-left: 44px;
+    border-radius: 21px;
+    height: 30px;
+    background-color: #fff;
+    border: 2px solid #7d37ff;
+    width: 193px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: #7d37ff;
+    cursor: pointer;
+    /* margin-top: -7px; */
+    text-decoration: none;
+  }

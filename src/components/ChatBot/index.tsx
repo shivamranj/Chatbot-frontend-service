@@ -12,6 +12,7 @@ import { RootState } from "../../redux/store";
 
 import axios from "axios";
 import "./index.css";
+import { sendChatMessage } from "../../utils/api";
 
 interface Message {
   id: number;
@@ -57,14 +58,11 @@ const ChatBot: React.FC = () => {
       dispatch(setLoading(true));
 
       try {
-        const response = await axios.post("http://127.0.0.1:8000/chat", {
-          message: message,
-        });
-
+        const reply = await sendChatMessage(message);
         const botMessage: Message = {
           id: Date.now(),
           user: "Bot",
-          text: response.data.reply,
+          text: reply,
         };
         dispatch(setMessages([...updatedMessages, botMessage]));
         dispatch(setLoading(false));
@@ -87,7 +85,6 @@ const ChatBot: React.FC = () => {
   };
 
   const handleEditMessage = (messageId: number) => {
-    // Find the message to edit
     const messageToEdit = messages.find((msg) => msg.id === messageId);
     if (messageToEdit) {
       setEditingMessage(messageToEdit);

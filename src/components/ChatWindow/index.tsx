@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import { ARTISAN_URL, BOT ,ARTISAN_URL_PRODUCT } from "../../constant";
 import { formatMessage } from "../../utils/helper";
 import { profileIcon } from "../../utils/imageProvider";
 import "./index.css";
 
 interface ChatWindowProps {
-  messages: { id: number; user: string; text: string ; 
-   edited?: boolean 
-  }[];
+  messages: { id: number; user: string; text: string; edited?: boolean }[];
   onDeleteMessage: (messageId: number) => void;
   onEditMessage: (messageId: number, newText: string) => void; // Added onEditMessage prop
 }
@@ -48,40 +47,52 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   return (
     <div className="chat-window">
       {messages.map((msg, index) => (
-        <div
-          key={index}
-          className={`message ${msg.user.toLowerCase()}`}
-          onMouseEnter={() => handleMouseEnter(msg.id)}
-          onMouseLeave={handleMouseLeave}
-        >
-          {msg.user === "Bot" && <img className="bot-icon" src={profileIcon} />}
-          <div className="message-content">
-            <div>
-              {formatMessage(msg.text)}
-              {msg.edited && <span className="edited-label"> (edited)</span>}
-              {msg.user === "User" && hoveredMessageId === msg.id && (
-                <div className="message-options">
-                  <span
-                    className="ellipsis"
-                    onClick={() => toggleOptions(msg.id)}
-                  >
-                    ...
-                  </span>
-                  {showOptions === msg.id && (
-                    <div className="options-menu">
-                      <button onClick={() => handleSaveEdit(msg.id, msg.text)}>
-                        Edit
-                      </button>
-                      <button onClick={() => onDeleteMessage(msg.id)}>
-                        Delete
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )}
+        <>
+          <div
+            key={index}
+            className={`message ${msg.user.toLowerCase()}`}
+            onMouseEnter={() => handleMouseEnter(msg.id)}
+            onMouseLeave={handleMouseLeave}
+          >
+            {msg.user === BOT && (
+              <img className="bot-icon" src={profileIcon} />
+            )}
+            <div className="message-content">
+              <div>
+                {formatMessage(msg.text)}
+                {msg.edited && <span className="edited-label"> (edited)</span>}
+                {msg.user === "User" && hoveredMessageId === msg.id && (
+                  <div className="message-options">
+                    <span
+                      className="ellipsis"
+                      onClick={() => toggleOptions(msg.id)}
+                    >
+                      ...
+                    </span>
+                    {showOptions === msg.id && (
+                      <div className="options-menu">
+                        <button
+                          onClick={() => handleSaveEdit(msg.id, msg.text)}
+                        >
+                          Edit
+                        </button>
+                        <button onClick={() => onDeleteMessage(msg.id)}>
+                          Delete
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+          {msg.user === BOT && index==0 && (
+            <>
+            <a className="message-content_cyclic" href={ARTISAN_URL} target="_blank">Go to Artisan Dashboard</a>
+            <a className="message-content_cyclic" href={ARTISAN_URL_PRODUCT} target="_blank">Go to Product Page</a>
+            </>
+          )}
+        </>
       ))}
       <div ref={endViewRef} />
     </div>

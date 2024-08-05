@@ -1,3 +1,5 @@
+import { environmentLocal } from "../environment";
+
 export const  formatMessage=(text)=>{
    const lines = text.split('\n');
 
@@ -18,4 +20,9 @@ export const  formatMessage=(text)=>{
    }
    return formattedLines.join('\n');
 }
+
+export const getEnviroment =
+  process.env.REACT_APP_ENV == 'PROD'
+    ? environmentLocal
+    : environmentLocal;
 
