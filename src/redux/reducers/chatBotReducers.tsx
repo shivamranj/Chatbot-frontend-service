@@ -1,3 +1,4 @@
+import { BOT } from '../../constant';
 import { SET_IS_OPEN, SET_LOADING, SET_MESSAGES } from '../actionTypeConstants/chatBotConstant';
 
 interface Message {
@@ -15,7 +16,7 @@ interface ChatState {
 // Define the initial state without Immutable
 const initialState: ChatState = {
   isOpen: false,
-  messages: [{ id: Date.now(), user: 'Bot', text: 'Hi, How can I help you?' }],
+  messages: [{ id: Date.now(), user: BOT, text: 'Hi, How can I help you?' }],
   loading: false,
 };
 

@@ -5,6 +5,8 @@ import setting from '../assets/images/Setting.svg';
 import Collapse from '../assets/images/Collapse.svg';
 import Expand from '../assets/images/Expand.svg';
 import ChatBotIcon from '../assets/images/ChatBot.svg';
+import CrossIcon from '../assets/images/ChatbotCross.svg';
+
 
 export {
     profileIcon,
@@ -13,5 +15,6 @@ export {
     setting,
     Collapse,
     Expand,
-    ChatBotIcon
+    ChatBotIcon,
+    CrossIcon
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { TYPE_SOMETHING } from "../../constant";
 import {
   sendMsgButton,
   setting,
@@ -14,7 +15,6 @@ interface ChatInputProps {
 const ChatInput: React.FC<ChatInputProps> = ({ onSend, editingMessage }) => {
   const [message, setMessage] = useState("");
 
-  // Pre-fill the input with the message text when editing
   useEffect(() => {
     if (editingMessage) {
       setMessage(editingMessage.text);
@@ -36,7 +36,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSend, editingMessage }) => {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         onKeyPress={(e) => e.key === "Enter" && handleSend()}
-        placeholder="Type Something..."
+        placeholder={TYPE_SOMETHING}
       />
       <img src={setting} alt="setting" className="setting" />
       <img

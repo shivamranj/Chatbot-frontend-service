@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ChatWindow from "../ChatWindow";
 import ChatInput from "../ChatInput";
-import { Collapse, Expand, profileIcon } from "../../utils/imageProvider";
+import { Collapse, CrossIcon, Expand, profileIcon } from "../../utils/imageProvider";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setMessages,
@@ -9,10 +9,9 @@ import {
   setIsOpen,
 } from "../../redux/actions/chatBotAction";
 import { RootState } from "../../redux/store";
-
-import axios from "axios";
 import "./index.css";
 import { sendChatMessage } from "../../utils/api";
+import { BOT, ERROR_MESSAGE } from "../../constant";
 
 interface Message {
   id: number;
@@ -33,7 +32,7 @@ const ChatBot: React.FC = () => {
     if (isOpen && messages.length <=1) {
       dispatch(
         setMessages([
-          { id: Date.now(), user: "Bot", text: "Hi, How can I help you?" },
+          { id: Date.now(), user: BOT, text: "Hi, How can I help you?" },
         ])
       );
     }
@@ -61,7 +60,7 @@ const ChatBot: React.FC = () => {
         const reply = await sendChatMessage(message);
         const botMessage: Message = {
           id: Date.now(),
-          user: "Bot",
+          user: BOT,
           text: reply,
         };
         dispatch(setMessages([...updatedMessages, botMessage]));
@@ -70,8 +69,8 @@ const ChatBot: React.FC = () => {
         console.error("Error sending message:", error);
         const errorMessage: Message = {
           id: Date.now(),
-          user: "Bot",
-          text: "Sorry, something went wrong.",
+          user: BOT,
+          text: ERROR_MESSAGE,
         };
         dispatch(setMessages([...updatedMessages, errorMessage]));
         dispatch(setLoading(false));
@@ -109,12 +108,11 @@ const ChatBot: React.FC = () => {
             toggleMaximize();
           }}
         />
-        <button
+        <img
           className="close-btn"
           onClick={() => dispatch(setIsOpen(false))}
-        >
-          X
-        </button>
+          src = {CrossIcon}
+        />
         <div className="chatbot-header__details">
           <img src={profileIcon} />
           <div>Hey 👋, I'm Ava</div>

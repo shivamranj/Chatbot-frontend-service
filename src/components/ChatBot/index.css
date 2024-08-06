@@ -79,6 +79,8 @@
     color: black;
     font-size: 16px;
     cursor: pointer;
+    width: 18px;
+    height: 18px;
   }
 
   .chatbot-header__details{

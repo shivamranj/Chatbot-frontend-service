@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ARTISAN_URL, BOT ,ARTISAN_URL_PRODUCT } from "../../constant";
+import { ARTISAN_URL, BOT ,ARTISAN_URL_PRODUCT, ARTISAN_DASHBOARD, ARTISAN_PRODUCT_PAGE } from "../../constant";
 import { formatMessage } from "../../utils/helper";
 import { profileIcon } from "../../utils/imageProvider";
 import "./index.css";
@@ -59,7 +59,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
             )}
             <div className="message-content">
               <div>
-                {formatMessage(msg.text)}
+                {formatMessage(msg.text)} 
+                {/* {msg.text} */}
                 {msg.edited && <span className="edited-label"> (edited)</span>}
                 {msg.user === "User" && hoveredMessageId === msg.id && (
                   <div className="message-options">
@@ -88,8 +89,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           </div>
           {msg.user === BOT && index==0 && (
             <>
-            <a className="message-content_cyclic" href={ARTISAN_URL} target="_blank">Go to Artisan Dashboard</a>
-            <a className="message-content_cyclic" href={ARTISAN_URL_PRODUCT} target="_blank">Go to Product Page</a>
+            <a className="message-content_cyclic" href={ARTISAN_URL} target="_blank">{ARTISAN_DASHBOARD}</a>
+            <a className="message-content_cyclic" href={ARTISAN_URL_PRODUCT} target="_blank">{ARTISAN_PRODUCT_PAGE}</a>
             </>
           )}
         </>
