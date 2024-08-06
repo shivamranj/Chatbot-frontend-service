@@ -9,13 +9,14 @@ import sagas from "./sagas";
 
 export const history = createBrowserHistory();
 
+//Here middleware is not required as we are just integrating one api so this can be ignored just adding for reference.
 const sagaMiddleware = createSagaMiddleware();
 
 const initialState = {};
 
 const middleware = [
   routerMiddleware(history),
-  createDebounce() as Middleware, // Cast type to Middleware
+  createDebounce() as Middleware, 
   sagaMiddleware,
 ];
 
