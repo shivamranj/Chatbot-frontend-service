@@ -1,0 +1,56 @@
+#Just for Reference
+
+# name: Artisan ChatBot CI
+
+# on:
+#   release:
+#     types: [published]
+#   workflow_dispatch:
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     strategy:
+#       matrix:
+#         node: [14]
+
+#     steps:
+#       - uses: actions/checkout@v1
+
+#       - name: Setup node
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: ${{ matrix.node }}
+
+#       - name: print node version
+#         run: node -v
+
+
+#       - name: Build for prod
+#         run:  |
+#           cp .env.prod .env
+#           npm run build
+        
+
+#       - uses: USES_NAME
+#         with:
+#           args: --follow-symlinks
+#         env:
+#           AWS_S3_BUCKET: BUCKET_NAME
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
+#           AWS_REGION: ${{ secrets.AWS_REGION }}
+#           SOURCE_DIR: 'build'      
+#           DEST_DIR: ''
+
+#       - uses: USES_NAME
+#         env:
+#           DISTRIBUTION: 'DISTRIBUTION_ID'
+#           PATHS: '/ /*'
+#           AWS_REGION: 'AWS_REGION'
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
+
+
+  
