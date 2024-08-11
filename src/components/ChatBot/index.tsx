@@ -12,6 +12,7 @@ import { RootState } from "../../redux/store";
 import "./index.css";
 import { sendChatMessage } from "../../utils/api";
 import { BOT, ERROR_MESSAGE } from "../../constant";
+import axios , { AxiosError } from "axios";
 
 interface Message {
   id: number;
@@ -22,7 +23,7 @@ interface Message {
 
 const ChatBot: React.FC = () => {
   const dispatch = useDispatch();
-  const { messages, isOpen, loading } = useSelector(
+  const { messages, isOpen, loading ,userId } = useSelector(
     (state: RootState) => state.chatBot
   );
   const [isMaximized, setIsMaximized] = useState(false);
@@ -44,7 +45,7 @@ const ChatBot: React.FC = () => {
         msg.id === editingMessage.id ? { ...msg, text: message ,edited: true  } : msg
       );
       dispatch(setMessages(updatedMessages));
-      setEditingMessage(null); // Clear the editing state
+      setEditingMessage(null); 
     } else {
       const userMessage: Message = {
         id: Date.now(),
@@ -57,7 +58,7 @@ const ChatBot: React.FC = () => {
       dispatch(setLoading(true));
 
       try {
-        const reply = await sendChatMessage(message);
+        const reply = await sendChatMessage(message , userId);
         const botMessage: Message = {
           id: Date.now(),
           user: BOT,
@@ -66,14 +67,16 @@ const ChatBot: React.FC = () => {
         dispatch(setMessages([...updatedMessages, botMessage]));
         dispatch(setLoading(false));
       } catch (error) {
-        console.error("Error sending message:", error);
-        const errorMessage: Message = {
-          id: Date.now(),
-          user: BOT,
-          text: ERROR_MESSAGE,
+          console.error("Error sending message:", error);
+          const errorMessage: Message = {
+            id: Date.now(),
+            user: BOT,
+            text: ERROR_MESSAGE,
+            //text: error?.response?.data?.message || ERROR_MESSAGE,
         };
         dispatch(setMessages([...updatedMessages, errorMessage]));
         dispatch(setLoading(false));
+
       }
     }
   };
