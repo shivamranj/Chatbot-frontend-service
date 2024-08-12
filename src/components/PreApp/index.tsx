@@ -1,25 +1,54 @@
 import React, { useEffect, useState } from "react";
 import ChatBot from "../ChatBot";
-import "./index.css";
 import { ChatBotIcon } from "../../utils/imageProvider";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsOpen } from "../../redux/actions/chatBotAction";
+import { setIsOpen, setUserId } from "../../redux/actions/chatBotAction";
 import { RootState } from "../../redux/store";
-import { ARTISAN_LOGO, ARTISAN_TEXT } from "../../constant";
+import { ARTISAN_LOGO, ARTISAN_TEXT, CHATBOT_ACTIVATED, EMAIL_INVALID } from "../../constant";
+import { createUser } from "../../utils/api";
+import { toast } from 'react-toastify';
+import "./index.css";
 
 const PreApp = () => {
   const dispatch = useDispatch();
-  const { isOpen } = useSelector((state: RootState) => state.chatBot);
+  const { isOpen , userId } = useSelector((state: RootState) => state.chatBot);
   const [showNotification, setShowNotification] = useState(false);
+  const [emailValue, setEmailValue] = useState("");
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowNotification(true);
-    }, 1200);
+  useEffect(()=>{
+    if(userId.length > 0){
+      const timer = setTimeout(() => {
+        setShowNotification(true);
+      }, 800);
+      return () => clearTimeout(timer);
+    }
+  },[userId])
 
-    return () => clearTimeout(timer);
-  }, []);
-
+  const checkUser = async () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailValue)) {
+      dispatch(setUserId(""));
+      setEmailValue("")
+      toast.error(EMAIL_INVALID, {
+        autoClose: 2000,
+      });
+      return; 
+    }
+    try {
+      const { data } = await createUser(emailValue);
+      dispatch(setUserId(data?.user_id));
+      toast.success(CHATBOT_ACTIVATED, {
+        autoClose: 2000,
+      });
+    } catch (error) {
+      dispatch(setUserId(""));
+      setEmailValue("")
+      toast.error(EMAIL_INVALID, {
+        autoClose: 2000,
+      });
+    }
+  };
+  
   return (
     <React.Fragment>
       <div className="header__container">
@@ -46,9 +75,23 @@ const PreApp = () => {
             Welcome To Ava ChatBot......
           </div>
         </div>
+      {userId?.length<=0 && <div className="email_input">
+            <input type="text" 
+            placeholder="Please enter a valid email to enable the chatbot......" 
+            value={emailValue} 
+            onChange={(e)=>{
+              setEmailValue(e.target.value)
+            }}
+           onKeyDown={(e)=>{ 
+            if(e.keyCode === 13)
+            checkUser()
+            }}
+            />
+            <input type="button" value={"Submit"} onClick={()=>{checkUser()}} />
+        </div> }
       </div>
       <ChatBot />
-      {!isOpen && (
+      {!isOpen && userId.length>0 && (
         <>
           <img
             src={ChatBotIcon}

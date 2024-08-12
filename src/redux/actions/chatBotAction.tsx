@@ -1,4 +1,4 @@
-import { SET_LOADING , SET_IS_OPEN , SET_MESSAGES } from "../actionTypeConstants/chatBotConstant";
+import { SET_LOADING , SET_IS_OPEN , SET_MESSAGES, SET_USER_ID } from "../actionTypeConstants/chatBotConstant";
 
 interface Message {
     id: number;
@@ -26,6 +26,14 @@ export const setMessages = (messages:Message[])  => {
 export const setIsOpen = (value:boolean) => {
     const action = {
       type: SET_IS_OPEN,
+      value,
+    };
+    return action;
+  };
+
+export const setUserId = (value:string) => {
+    const action = {
+      type: SET_USER_ID,
       value,
     };
     return action;
